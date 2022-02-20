@@ -1,26 +1,11 @@
-import { useFetch } from "./hooks/useFetch";
-
-type Repository = {
-  full_name: string;
-  description: string;  
-}
-
-function App() {
-  const { data: repositories, isFetching } 
-    = useFetch<Repository[]>('users/GildoSavior/repos');
+import { Routes, Route } from "react-router-dom";
+import { Repos } from "./pages/Repos";
+import { Repo } from "./pages/Repo";
+export function App() {
   return (
-    <ul>
-      {isFetching && <p>Carregando ...</p>}
-      {repositories?.map(repo => {
-         return  ( 
-           <li key={repo.full_name}>
-             <strong>{repo.full_name}</strong> 
-             <strong>{repo.description}</strong>
-           </li>
-         )
-      })}
-    </ul>
+    <Routes>
+      <Route path="/" element={<Repos />}></Route>
+      <Route path="/repo/*" element={<Repo />}></Route>
+    </Routes>
   )
 }
-
-export default App
